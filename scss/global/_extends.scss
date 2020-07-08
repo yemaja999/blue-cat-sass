@@ -1,0 +1,27 @@
+%child-a {
+	display: block;
+	position: relative;
+	text-decoration: none;
+}
+
+%click-button {
+	background: transparent;
+	border: 0;
+	cursor: pointer;
+	display: inline-block;
+	text-decoration: none;
+}
+
+.hide-text {
+	color: transparent;
+	font: 0/0 a;
+	text-shadow: none;
+}
+
+%arrow {
+	&:after {
+		content: "\00bb";
+		display: inline-block;
+		margin-left: 3px;
+	}
+}

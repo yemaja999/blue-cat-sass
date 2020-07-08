@@ -1,0 +1,7 @@
+@function em($target, $context: $FONT-SIZE) {
+	@return ($target / $context) * 1em;
+}
+
+@function rem($target, $context: $FONT-SIZE) {
+ 	@return ($target / $context) * 1rem;
+}

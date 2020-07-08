@@ -1,0 +1,52 @@
+//
+// CONFIG
+//
+
+
+//
+// ZMIENNE GLOBALNE
+//
+
+//
+// Podstawowa wielkość fontów
+//
+
+$FONT-SIZE: 16;
+
+//
+// Ścieżka do katalogu z elementami graficznymi
+//
+
+$IMG: "../img/";
+
+//
+// Naturalny box model
+//
+
+$BORDER-BOX: true !default;
+
+//
+// Grayscale?
+//
+
+$GRAYSCALE: false !default;
+
+//
+// Sprites?
+//
+
+// $SPRITES: false; // Przy rozpoczęciu prac lepiej jak jest false
+
+
+//
+// SCSS FRAMEWORK
+//
+
+// @import "compass";
+
+// Plik konfiguracyjny Compassa to compass.rb.
+// Trzeba ustawić w nim odpowiednie ścieżki.
+//
+// compass watch -c compass.rb
+
+

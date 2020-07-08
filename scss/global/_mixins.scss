@@ -1,0 +1,178 @@
+@charset "UTF-8";
+
+@mixin placeholder($color) {
+	&::-webkit-input-placeholder {
+		color: $color;
+	}
+
+	&:-moz-placeholder {
+		color: $color;
+	}
+}
+
+//
+// Paski przewijania (tylko Webkit)
+//
+// Przykładowe użycie:
+// @include scrollbars([kolor-draga],[kolor paska],[szerokość paska],[zaokrąglenie paska])
+//
+
+@mixin scrollbars($color-thumb, $color-track, $width: 10px, $radius: 0) {
+	&::-webkit-scrollbar {
+		-webkit-appearance: none;
+		width: $width;
+	}
+
+	&::-webkit-scrollbar-track {
+		background-color: $color-track;
+		@include border-radius($radius + 4);
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: $color-thumb;
+		@include border-radius($radius);
+	}
+}
+
+@mixin breakpoint($point) {
+	@if $point == b1 {
+		@media (max-width: 1080px)  { @content; }
+	} @else if $point == b2 {
+		@media (max-width: 780px)  { @content; }
+	} @else if $point == b3 {
+		@media (max-width: 560px)  { @content; }
+	} @else {
+		@media (max-width: $point)  { @content; }
+	}
+}
+
+//
+// Overflow Ellipsis
+//
+// Przykładowe użycie:
+// @inclide ellipsis; <- wielokropek na końcu linii, wiele linii
+// @inclide ellipsis(block,nowrap); <- wielokropek na końcu linii, pojedyncza linia
+//
+@mixin ellipsis($display: block, $white-space: normal) {
+	@if $display == inb {
+		display: inline-block;
+		vertical-align: middle;
+	} @else {
+		display: $display;
+	}
+	overflow: hidden;
+	@if $white-space == nowrap {
+		white-space: nowrap;
+	}
+	text-overflow: ellipsis;
+}
+
+
+//
+// Display: inline-block;
+//
+// Przykładowe użycie:
+// @inclide inb; <- inline-block dla elementy z fixem dla IE7;
+// @inclide inb(-1px); <- inline-block z vertical-align: middle; position: relative; top: -1px
+//
+@mixin inb($shift: 0) {
+	display: inline-block; *display: inline; *zoom: 1;
+	@if $shift != 0 {
+		position: relative; top: $shift;
+		vertical-align: middle;
+	}
+}
+
+//
+// Image replacement
+//
+// Tylko pliki PNG!
+//
+
+$sprites: sprite-map("sprites/*.png", $layout: smart, $spacing: 5px);
+
+%sprites-url {
+	background-image: sprite-url($sprites);
+	color: transparent;
+	font: 0/0 a;
+	overflow: hidden;
+	text-shadow: none;
+}
+
+@mixin ir($name, $display: block, $shift: 0) {
+	@extend %sprites-url;
+	background-position: round(nth(sprite-position($sprites, $name), 1)) round(nth(sprite-position($sprites, $name), 2));
+	height: image-height(sprite-file($sprites, $name));
+	@if $display == inb {
+		display: inline-block;
+		vertical-align: middle;
+	} @else {
+		display: $display;
+	}
+	@if $shift != 0 {
+		position: relative; top: $shift;
+	}
+	width: image-width(sprite-file($sprites, $name));
+}
+
+
+//
+// Example usage:
+// @include animation(10s, 5s, changecolour)
+//
+
+@mixin animation($delay, $duration, $animation) {
+	-webkit-animation-delay: $delay;
+	-webkit-animation-duration: $duration;
+	-webkit-animation-name: $animation;
+	-webkit-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+
+	-moz-animation-delay: $delay;
+	-moz-animation-duration: $duration;
+	-moz-animation-name: $animation;
+	-moz-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+
+	-o-animation-delay: $delay;
+	-o-animation-duration: $duration;
+	-o-animation-name: $animation;
+	-o-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+
+	animation-delay: $delay;
+	animation-duration: $duration;
+	animation-name: $animation;
+	animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+}
+
+//
+// @include keyframe(animation-name) {
+//   from {
+//		font-size: 5em;
+//	}
+//	to {
+//		font-size: 3em;
+//	}
+//}
+//
+
+@mixin keyframes($animation_name) {
+	@-webkit-keyframes $animation_name {
+		@content;
+	}
+
+	@-moz-keyframes $animation_name {
+		@content;
+	}
+
+	@-o-keyframes $animation_name {
+		@content;
+	}
+
+	@keyframes $animation_name {
+		@content;
+	}
+}
+
+@mixin word-break() {
+	word-break: break-word;
+	word-wrap: break-word;
+}

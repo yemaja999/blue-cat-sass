@@ -1,0 +1,383 @@
+//
+// Setup
+//
+
+// @import "/config";
+
+// @import "global/reset";
+@import "global/normalize";
+@import "global/clearfix";
+@import "global/functions";
+// @import "global/mixins";
+@import "global/extends";
+
+.main {
+	margin: 0 auto;
+	padding: 30px 0;
+	width: 980px;
+}
+
+$col1: #43baec;
+$col2: #f06596;
+
+@mixin gradient($gcol1, $gcol2, $ort: left) {
+	$ort2: right;
+
+	@if $ort == top {
+		$ort2: bottom;
+	}
+
+	background: $gcol1; /* Old browsers */
+	background: -moz-linear-gradient($ort,  $gcol1 0%, $gcol2 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, $ort top, $ort2 top, color-stop(0%,$gcol1), color-stop(100%,$gcol2)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient($ort,  $gcol1 0%,$gcol2 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient($ort,  $gcol1 0%,$gcol2 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient($ort,  $gcol1 0%,$gcol2 100%); /* IE10+ */
+	background: linear-gradient(to $ort2,  $gcol1 0%,$gcol2 100%); /* W3C */
+}
+
+@mixin rotate($deg){
+	-webkit-transform:rotate($deg); 
+	-moz-transform:rotate($deg);
+	-o-transform:rotate($deg);
+	transform:rotate($deg);
+}
+
+.face {
+	height: 90px;
+	position: relative;
+	width: 100px;
+
+	&:hover {
+		.m {
+			height: 4px;
+			bottom: 26%;
+
+			&:before {
+				background: transparent;
+			}
+		}
+
+		.l-e,
+		.r-e {
+			&:before {
+				background: #000;
+				content: "";
+				height: 20%;
+				border-radius: 50%;
+				position: absolute; left: 40%; top: 60%;
+				width: 30%;
+			}
+
+			&:after {
+				background: #9fdffa;
+				box-shadow: 0 1px 0 #000;
+				content: "";
+				height: 50%;
+				border-radius: 50%;
+				position: absolute; left: 1px; top: 0;
+				width: 94%;
+			}
+		}
+
+		.l-b {
+			@include rotate(25deg);
+		}
+
+		.r-b {
+			@include rotate(-25deg);
+		}
+
+		.l-ear {
+			@include rotate(25deg);
+		}
+
+		.r-ear {
+			@include rotate(-25deg);
+		}
+	}
+
+	.circle {
+		background: $col1;
+		border-radius: 50%;
+		height: 100%;
+		position: relative;
+		z-index: 3;
+		width: 100%;
+	}
+
+	.l-b,
+	.r-b,
+	.l-e,
+	.r-e,
+	.m,
+	.l-ms,
+	.r-ms {
+		z-index: 4;
+	}
+	.l-b {
+		background: #000;
+		height: 2px;
+		position: absolute; left: 38%; top: 25%;
+		width: 10px;
+
+		@include rotate(-25deg);
+	}
+
+	.r-b {
+		background: #000;
+		height: 2px;
+		position: absolute; right: 38%; top: 25%;
+		width: 10px;
+
+		@include rotate(25deg);
+	}
+
+	.l-e {
+		background: #fff;
+		border: 1px solid #000;
+		border-radius: 50%;
+		box-shadow: 1px 1px 0 #000;
+		height: 10px;
+		position: absolute; left: 38%; top: 30%;
+		width: 10px;
+
+		&:before {
+			background: #000;
+			content: "";
+			height: 20%;
+			border-radius: 50%;
+			position: absolute; left: 40%; top: 40%;
+			width: 20%;
+		}
+	}
+
+	.r-e {
+		background: #fff;
+		border: 1px solid #000;
+		border-radius: 50%;
+		box-shadow: -1px 1px 0 #000;
+		height: 10px;
+		position: absolute; right: 38%; top: 30%;
+		width: 10px;
+		animation: r-eye 2s 5s ease alternate;
+		-webkit-animation: r-eye 0.4s;
+
+		&:before {
+			background: #000;
+			content: "";
+			height: 20%;
+			border-radius: 50%;
+			position: absolute; right: 40%; top: 40%;
+			width: 20%;
+		}
+	}
+
+	.l-ear {
+		background: $col1;
+		box-shadow: 0 5px 0 darken($col1,30%) inset;
+		border-radius: 50%;
+		height: 26px;
+		position: absolute; top: 0; left: 0;
+		width: 48px;
+		@include rotate(45deg);
+	}
+
+	.r-ear {
+		background: $col1;
+		box-shadow: 0 5px 0 darken($col1,30%) inset;
+		border-radius: 50%;
+		height: 26px;
+		position: absolute; top: 0; right: 0;
+		width: 48px;
+		@include rotate(-45deg);
+	}
+
+	.n {
+		border: 6px solid transparent;
+		border-top: 6px solid #000;
+		height: 0;
+		margin: 0 0 0 -6px; 
+		position: absolute; left: 50%; top: 50%;
+		z-index: 5;
+	}
+
+	.m {
+		background: $col2;
+		@include gradient(#f06596,#fa1465);
+		border-radius: 50%;
+		height: 30px;
+		margin: 0 0 0 -15px;
+		position: absolute; left: 50%; bottom: 20%;
+		width: 30px;
+
+		&:before {
+			background: $col1;
+			content: "";
+			height: 50%;
+			position: absolute; left: 0; top: 0%;
+			width: 100%;
+		}
+	}
+
+	.l-ms {
+		position: absolute; left: -6%; top: 51%;
+
+		div {
+			background: #000;
+			height: 1px;
+			width: 46px;
+		}
+
+		> div:nth-child(1) {
+			@include rotate(15deg);
+			position: absolute; top: -8px; right: 0;
+		}
+
+		div:nth-child(2) {
+			@include rotate(-15deg);
+			position: absolute; top: 8px; right: 0;
+		}
+	}
+
+	.r-ms {
+		position: absolute; right: -6%; top: 51%;
+
+		div {
+			background: #000;
+			height: 1px;
+			width: 46px;
+		}
+
+		> div:nth-child(1) {
+			@include rotate(-15deg);
+			position: absolute; top: -8px; left: 0;
+		}
+
+		div:nth-child(2) {
+			@include rotate(15deg);
+			position: absolute; top: 8px; left: 0;
+		}
+	}
+}
+
+.body {
+	height: 100px;
+	position: relative; left: -10px; top: -15px;
+	width: 120px;
+	
+	.b-center {
+		background: $col1;
+		border-radius: 50%;
+		height: 100%;
+		width: 100%;
+
+		div {
+			background: lighten($col1, 10%);
+			border-radius: 50%;
+			height: 60%;
+			-webkit-transform: translate(35%,35%);
+			transform: translate(35%,35%);
+			width: 60%;
+		}
+	}
+
+	.l-foot {
+		height: 18px;
+		overflow: hidden;
+		position: absolute; left: 10px; bottom: 0;
+		width: 40px;
+
+		&:before {
+			background: $col1;
+			border-top: 1px solid #000;
+			border-radius: 50%;
+			content: "";
+			height: 200%;
+			position: absolute; left: 0; top: 0;
+			width: 100%;
+		}
+	}
+
+	.r-foot {
+		height: 18px;
+		overflow: hidden;
+		position: absolute; right: 10px; bottom: 0;
+		width: 40px;
+
+		&:before {
+			background: $col1;
+			border-top: 1px solid #000;
+			border-radius: 50%;
+			content: "";
+			height: 200%;
+			position: absolute; left: 0; top: 0;
+			width: 100%;
+		}
+	}
+
+	.tail {
+		position: absolute; right: -50px; bottom: 0;
+
+		&:hover {
+			div:nth-child(2) {
+
+			}
+		}
+
+		div:nth-child(1) {
+			border: 12px solid $col1;
+			border-top-color: transparent;
+			border-radius: 50%;
+			height: 50px;
+			width: 50px;
+		}
+
+		div:nth-child(2) {
+			border: 12px solid $col1;
+			border-bottom-color: transparent;
+			border-right-color: transparent;
+			border-radius: 50%;
+			height: 60px;
+			position: absolute; left: 44px; bottom: 43px;
+			width: 50px;
+		}
+
+		div:nth-child(3) {
+			background: $col1;
+			border-radius: 50%;
+			height: 12px;
+			position: absolute; left: 97px; bottom: 104px;
+			width: 12px;
+		}
+	}
+}
+
+
+@keyframes r-eye {
+	0% {
+		height: 10px;
+		top: 30%;
+	}
+	10% {
+		height: 0;
+		top: 35%;
+	}
+	90% {
+		height: 0;
+		top: 35%;
+	}
+	100% {
+		height: 10px;
+		top: 30%;
+	}
+}
+
+// @-webkit-keyframes myfirst {
+// 	from {background: red;}
+// 	to {background: yellow;}
+// }
+
+// animation: myfirst 5s;
+// -webkit-animation: myfirst 5s;
+
